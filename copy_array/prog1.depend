@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1704121374 source:e:\newc\projects\prog1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1704122426 source:e:\newc\projects\prog1\util_functions.c
+
