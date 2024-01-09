@@ -35,29 +35,21 @@ int main()
         while(1)
         {
             recv(client_socket, head_buf, sizeof(head_buf), 0);
-//            for( int i = 0; i < HEADER_SIZE; ++i )
-//            {
-//                printf("%d ", head_buf[i]);
-//            }
 
             unsigned char body_size = head_buf[3] + 1;
             char* body_buf = (char*) malloc(body_size);
             if(body_buf != NULL)
             {
                 recv(client_socket, body_buf, sizeof(body_buf), 0);
-//                for( int i = 0; i < body_size; ++i )
-//                {
-//                    printf("%d ", body_buf[i]);
-//                }
-            }
-//            struct command_package *input_data = {
+
+//            struct command_package input_data = {
 //                head_buf,
 //                body_size,
 //                body_buf
 //            };
 //
-//            recognize(input_data);
-            recognizeType(head_buf, body_size, body_buf);
+//            recognize(&input_data);
+            recognizeType(head_buf, body_buf);
 
             free(body_buf);
             printf("\n");
@@ -65,6 +57,7 @@ int main()
             char nm[4] =  {65,66,67,68};
             send(client_socket, nm, sizeof(nm), 0);
         }
+    }
     }
 
 

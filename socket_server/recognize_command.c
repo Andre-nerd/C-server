@@ -2,25 +2,23 @@
 
 void recognize(struct command_package *input_data)
 {
-    printf("body size %d\n", input_data->length_body);
-    for( int i = 0; i < HEADER_SIZE ; ++i )
-    {
-        printf("%d ", (char) input_data->header[i]);
-    }
-    for( int i = 0; i < input_data->length_body ; ++i )
-    {
-        printf("%d ", input_data->body[i]);
-    }
+//    printf("header %d  body %d", input_data->header, input_data->body);
+    printStructCommand(input_data->header, input_data->header[3], input_data->body);
 
 };
 
-void recognizeType(char *header, unsigned char body_size, char *body)
+void recognizeType(char *header, char *body)
 {
-    printStructCommand(header, body_size, body);
+    printStructCommand(header, body);
+    switch(header[2])
+    {
+    case on_off:
+        printf("type: %d", on_off );
 
+    }
 }
 
-void printStructCommand(char *header, unsigned char body_size, char *body)
+void printStructCommand(char *header, char *body)
 {
     printf("new command:\n");
     for( int i = 0; i < HEADER_SIZE ; ++i )
@@ -28,11 +26,11 @@ void printStructCommand(char *header, unsigned char body_size, char *body)
         printf("%d ", (char) header[i]);
     }
     printf("  ");
-    for( int i = 0; i < body_size -1 ; ++i )
+    for( int i = 0; i < header[3] ; ++i )
     {
         printf("%d ", body[i]);
     }
     printf("  ");
-    printf("%d",body[body_size-1]);
+    printf("%d",body[header[3]]);
     printf("\n");
 }
