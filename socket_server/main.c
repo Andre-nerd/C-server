@@ -11,6 +11,8 @@ int main()
     SOCKET s;
     s = socket(AF_INET, SOCK_STREAM,0);
 
+    int header_size = 4;
+
     SOCKADDR_IN sa;
         memset(&sa, 0, sizeof(sa) );
         sa.sin_family =  AF_INET;
@@ -19,8 +21,8 @@ int main()
         bind(s, &sa, sizeof(sa));
         listen(s, 100);
 
-        int buf[5];
-        memset(buf, 0, sizeof(buf));
+        char head_buf[header_size];
+        memset(head_buf, 0, sizeof(head_buf));
 
         SOCKET client_socket;
         SOCKADDR_IN client_addr;
@@ -28,15 +30,31 @@ int main()
 
         while(client_socket = accept(s, &client_addr, &client_addr_size)){
             printf("connect OK\n");
+            while(1){
+            recv(client_socket, head_buf, sizeof(head_buf), 0);
 
-            while(recv(client_socket, buf, sizeof(buf), 0) > 0 ){
-                for( int i = 0; i < 5; ++i ){
-                    printf("%d ", buf[i]);
+            int body_size = head_buf[3] + 1;
+            char* body_buf = (char*) malloc(body_size);
+            recv(client_socket, body_buf, sizeof(body_buf), 0);
+
+            for( int i = 0; i < header_size; ++i ){
+                    printf("%d ", head_buf[i]);
                 }
-                printf("\n");
+            for( int i = 0; i < body_size; ++i ){
+                    printf("%d ", body_buf[i]);
+                }
+            printf("\n");
 
+
+//            while(recv(client_socket, buf, sizeof(buf), 0) > 0 ){
+//                for( int i = 0; i < header_size; ++i ){
+//                    printf("%d ", buf[i]);
+//                }
+//                printf("\n");
+//
                 char nm[4] =  {65,66,67,68};
                 send(client_socket, nm, sizeof(nm), 0);
+//            }
             }
         }
 

@@ -44,7 +44,7 @@ int main()
 
         char command = 's';
         do{
-            int mas[] = {34,22,78,1};
+            char mas[] = {36,0,0,1,1,78};
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
 
