@@ -3,7 +3,7 @@
 
 
 
-struct command_package recognize(struct command_package *input_data);
+void recognize(struct command_package *input_data);
 void recognizeType(char *header[], char *body[]);
 
 

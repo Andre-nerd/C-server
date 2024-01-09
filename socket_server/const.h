@@ -2,11 +2,11 @@
 #define CONST_H_INCLUDED
 
 #define HEADER_SIZE 4
-struct command_package
+typedef struct command_package
 {
     char header[HEADER_SIZE];
     char body[30];
-};
+} STRUCT_COMMAND;
 
 enum commands {
     on_off = 0x00

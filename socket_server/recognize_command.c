@@ -1,9 +1,9 @@
 #include "const.h"
 
-void recognize(struct command_package *input_data)
+void recognize(STRUCT_COMMAND *input_data)
 {
-//    printf("header %d  body %d", input_data->header, input_data->body);
-    printStructCommand(input_data->header, input_data->header[3], input_data->body);
+    printf("recognize fun \n");
+    printStructCommand(input_data->header, input_data->body);
 
 };
 

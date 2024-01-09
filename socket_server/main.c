@@ -42,22 +42,29 @@ int main()
             {
                 recv(client_socket, body_buf, sizeof(body_buf), 0);
 
-//            struct command_package input_data = {
-//                head_buf,
-//                body_size,
-//                body_buf
-//            };
-//
-//            recognize(&input_data);
-            recognizeType(head_buf, body_buf);
+                STRUCT_COMMAND input_data;
+                for(int i = 0; i < HEADER_SIZE; ++i)
+                {
+                    input_data.header[i] = head_buf[i];
+                    printf("%d", input_data.header[i]);
+                }
 
-            free(body_buf);
-            printf("\n");
+                for(int i = 0; i < body_size; ++i)
+                {
+                    input_data.body[i] = body_buf[i];
+                    printf("%d", input_data.body[i]);
+                }
+                printf("\n");
+                recognize(&input_data);
+//            recognizeType(head_buf, body_buf);
 
-            char nm[4] =  {65,66,67,68};
-            send(client_socket, nm, sizeof(nm), 0);
+                free(body_buf);
+                printf("\n");
+
+                char nm[4] =  {65,66,67,68};
+                send(client_socket, nm, sizeof(nm), 0);
+            }
         }
-    }
     }
 
 
