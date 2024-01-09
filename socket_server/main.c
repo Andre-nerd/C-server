@@ -3,6 +3,7 @@
 #include <winsock2.h>
 #include "recognize_command.h"
 #include "const.h"
+#include "common_utils.h"
 
 
 int main()
@@ -42,21 +43,20 @@ int main()
             {
                 recv(client_socket, body_buf, sizeof(body_buf), 0);
 
-                STRUCT_COMMAND input_data;
-                for(int i = 0; i < HEADER_SIZE; ++i)
-                {
-                    input_data.header[i] = head_buf[i];
-                    printf("%d", input_data.header[i]);
-                }
-
-                for(int i = 0; i < body_size; ++i)
-                {
-                    input_data.body[i] = body_buf[i];
-                    printf("%d", input_data.body[i]);
-                }
+                STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
+//                for(int i = 0; i < HEADER_SIZE; ++i)
+//                {
+//                    input_data.header[i] = head_buf[i];
+//                    printf("%d", input_data.header[i]);
+//                }
+//
+//                for(int i = 0; i < body_size; ++i)
+//                {
+//                    input_data.body[i] = body_buf[i];
+//                    printf("%d", input_data.body[i]);
+//                }
                 printf("\n");
                 recognize(&input_data);
-//            recognizeType(head_buf, body_buf);
 
                 free(body_buf);
                 printf("\n");
