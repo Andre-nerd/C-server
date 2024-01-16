@@ -17,6 +17,12 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
     case devices_for_solution:
     {
         handlerDevicesForSolutionCommand(input_data, sendResponse);
+        break;
+    }
+    case amendment_manage:
+    {
+        handlerAmendmentCommand(input_data, sendResponse);
+        break;
     }
     };
 

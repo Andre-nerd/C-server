@@ -20,6 +20,11 @@ void showWhatCommandGetResponse(int command)
         printf("Response by command Devices for Solution\n");
         break;
     }
+    case 2:
+    {
+        printf("Response by command Amendment Manager\n");
+        break;
+    }
 
     }
 }
@@ -92,10 +97,11 @@ int main()
     }
 
     char command = 0;
+    printf("command 0x00:- On/Off");
+    printf("command 0x01: 1-Get param 0x01  11 - Send command 0x01\n");
+    printf("command 0x02: 2-Get param 0x02  22 - Send command 0x02\n");
     do
     {
-        printf("command: 0- On/Off");
-        printf("command: 1-Get param 0x01  11 - Send comand 0x01\n");
         scanf("%d", &command);
         printf("input %d\n", command);
         switch(command)
@@ -111,7 +117,7 @@ int main()
         {
             unsigned char g[5] = {36,0x01,0x01,1,0x1E};
             char crc = crcCalc(g, 5);
-            char mas[] = {36,0x01,0x01,1,0x1E,crc};
+            char mas[6] = {36,0x01,0x01,1,0x1E,crc};
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;
@@ -120,7 +126,25 @@ int main()
         {
             unsigned char g[5] = {36,0,0x01,1,0x1E};
             char crc = crcCalc(g, 5);
-            char mas[] = {36,0,0x01,1,0x1E,crc};
+            char mas[6] = {36,0,0x01,1,0x1E,crc};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 2:
+        {
+            unsigned char g[4] = {36,0x01,0x02,0};
+            char crc = crcCalc(g, 4);
+            char mas[5] = {36,0x01,0x02,1,crc};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 22:
+        {
+            unsigned char g[6] = {36,0,0x02,0x02,7,7};
+            char crc = crcCalc(g, 6);
+            char mas[7] = {36,0,0x02,0x02,7,7,crc};;
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;
