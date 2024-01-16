@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1704809775 source:c:\candcplus\projects\c-server\socket_server\common_utils.c
+	"const.h"
+
+1704812258 c:\candcplus\projects\c-server\socket_server\const.h
+
+1704807622 source:c:\candcplus\projects\c-server\socket_server\main.c
+	<stdio.h>
+	<stdlib.h>
+	<winsock2.h>
+	"recognize_command.h"
+	"const.h"
+	"common_utils.h"
+
+1704807011 c:\candcplus\projects\c-server\socket_server\recognize_command.h
+
+1704809787 c:\candcplus\projects\c-server\socket_server\common_utils.h
+
+1704812139 source:c:\candcplus\projects\c-server\socket_server\on_off_command.c
+	"const.h"
+	"common_utils.h"
+

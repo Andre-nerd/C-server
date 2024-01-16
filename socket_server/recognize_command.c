@@ -1,36 +1,23 @@
-#include "const.h"
+#include "const.h"\
+#include "on_off_command.h"
 
-void recognize(STRUCT_COMMAND *input_data)
+void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, int))
 {
-    printf("recognize fun \n");
+    printf("recognize_command fun working\n");
+    STRUCT_RESPONSE* response;
     printStructCommand(input_data->header, input_data->body);
+
+    switch(input_data->header[2])
+    {
+    case on_off_command:
+    {
+        handlerOnOffCommand(input_data, sendResponse);
+        break;
+    }
+    };
+
+
 
 };
 
-void recognizeType(char *header, char *body)
-{
-    printStructCommand(header, body);
-    switch(header[2])
-    {
-    case on_off:
-        printf("type: %d", on_off );
 
-    }
-}
-
-void printStructCommand(char *header, char *body)
-{
-    printf("new command:\n");
-    for( int i = 0; i < HEADER_SIZE ; ++i )
-    {
-        printf("%d ", (char) header[i]);
-    }
-    printf("  ");
-    for( int i = 0; i < header[3] ; ++i )
-    {
-        printf("%d ", body[i]);
-    }
-    printf("  ");
-    printf("%d",body[header[3]]);
-    printf("\n");
-}

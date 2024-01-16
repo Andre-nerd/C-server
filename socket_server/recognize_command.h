@@ -2,9 +2,7 @@
 #define RECOGNIZE_COMMAND_H_INCLUDED
 
 
-
-void recognize(struct command_package *input_data);
-void recognizeType(char *header[], char *body[]);
+void recognize_command(struct command_package *input_data, void (*sendResponce)(char*, int));
 
 
 #endif // RECOGNIZE_COMMAND_H_INCLUDED

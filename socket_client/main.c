@@ -2,20 +2,44 @@
 #include <stdlib.h>
 #include <winsock2.h>
 
-int sendMessage(SOCKET s, short* data, int capacity){
+int sendMessage(SOCKET s, short* data, int capacity)
+{
     send(s, data, capacity, 0);
 }
+void showWhatTypeResponse(int command)
+{
+    switch(command)
+    {
+    case 0:
+        printf("Response by command ON/OFF\n");
+        break;
+    }
+}
 
-int recieveMessage(SOCKET s){
+int recieveMessage(SOCKET s)
+{
     char header[4];
     int length = sizeof(header);
     memset(header, 0, length);
     recv(s, header, length, 0);
-    printf("header: text/byte\n");
-    puts(header);
-    for(int i = 0; i < length; ++i){
+
+    showWhatTypeResponse((int)header[2]);
+
+    for(int i = 0; i < length; ++i)
+    {
         printf("%d", header[i]);
     }
+    printf(" ");
+    int body_size = header[3]+1;
+    char* body_buf = (char*) malloc(body_size);
+    memset(body_buf, 0, body_size);
+    recv(s, body_buf, body_size, 0);
+    for(int i = 0; i < body_size; ++i)
+    {
+        printf("%d", body_buf[i]);
+    }
+    free(body_buf);
+
     printf("\n");
 }
 
@@ -30,31 +54,34 @@ int main()
     s = socket(AF_INET, SOCK_STREAM,0);
 
     SOCKADDR_IN sa;
-        memset(&sa, 0, sizeof(sa) );
-        sa.sin_family =  AF_INET;
-        sa.sin_port = htons(9999);
-        int cnt = -1;
+    memset(&sa, 0, sizeof(sa) );
+    sa.sin_family =  AF_INET;
+    sa.sin_port = htons(9999);
+    int cnt = -1;
 
-        sa.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
-        while(cnt != 0){
+    sa.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+    while(cnt != 0)
+    {
         Sleep(500);
         cnt = connect(s, &sa, sizeof(sa) );
         printf("connect res: %d\n", cnt);
-        }
+    }
 
-        char command = 's';
-        do{
-            char mas[] = {36,0,0,1,1,78};
-            sendMessage(s,mas,sizeof(mas));
-            Sleep(500);
+    char command = 's';
+    do
+    {
+        char mas[] = {36,0,0,1,1,78};
+        sendMessage(s,mas,sizeof(mas));
+        Sleep(500);
 
-            recieveMessage(s);
+        recieveMessage(s);
 
-            printf("command: ");
-            scanf("%c", &command);
-            printf("input %d\n", command);
+        printf("command: ");
+        scanf("%c", &command);
+        printf("input %d\n", command);
 
-        }while(command != 'q');
+    }
+    while(command != 'q');
 
     closesocket(s);
     return 0;

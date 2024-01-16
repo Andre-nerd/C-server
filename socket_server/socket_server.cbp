@@ -34,9 +34,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="common_utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="common_utils.h" />
+		<Unit filename="const.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="on_off_command.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="on_off_command.h" />
+		<Unit filename="recognize_command.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="recognize_command.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

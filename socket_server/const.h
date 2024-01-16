@@ -2,14 +2,21 @@
 #define CONST_H_INCLUDED
 
 #define HEADER_SIZE 4
-typedef struct command_package
+#define SHORT_RESPONSE_LENGTH 6
+typedef struct
 {
     char header[HEADER_SIZE];
     char body[30];
 } STRUCT_COMMAND;
 
+typedef struct
+{
+    unsigned char short_response[SHORT_RESPONSE_LENGTH];
+    unsigned char long_response[30];
+} STRUCT_RESPONSE;
+
 enum commands {
-    on_off = 0x00
+    on_off_command = 0x00
 };
 enum specifications {
     direction = 0x00,

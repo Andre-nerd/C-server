@@ -5,6 +5,12 @@
 #include "const.h"
 #include "common_utils.h"
 
+SOCKET client_socket;
+
+void sendResponse(char* response, int length_response )
+{
+    send(client_socket, response, length_response, 0);
+}
 
 int main()
 {
@@ -26,13 +32,12 @@ int main()
     char head_buf[HEADER_SIZE];
     memset(head_buf, 0, sizeof(head_buf));
 
-    SOCKET client_socket;
     SOCKADDR_IN client_addr;
     int client_addr_size = sizeof(client_addr);
 
     while(client_socket = accept(s, &client_addr, &client_addr_size))
     {
-        printf("connect OK\n");
+        printf("The client has connected\n");
         while(1)
         {
             recv(client_socket, head_buf, sizeof(head_buf), 0);
@@ -42,27 +47,9 @@ int main()
             if(body_buf != NULL)
             {
                 recv(client_socket, body_buf, sizeof(body_buf), 0);
-
                 STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
-//                for(int i = 0; i < HEADER_SIZE; ++i)
-//                {
-//                    input_data.header[i] = head_buf[i];
-//                    printf("%d", input_data.header[i]);
-//                }
-//
-//                for(int i = 0; i < body_size; ++i)
-//                {
-//                    input_data.body[i] = body_buf[i];
-//                    printf("%d", input_data.body[i]);
-//                }
-                printf("\n");
-                recognize(&input_data);
-
+                recognize_command(&input_data, sendResponse);
                 free(body_buf);
-                printf("\n");
-
-                char nm[4] =  {65,66,67,68};
-                send(client_socket, nm, sizeof(nm), 0);
             }
         }
     }
