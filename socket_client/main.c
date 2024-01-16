@@ -6,7 +6,7 @@ int sendMessage(SOCKET s, short* data, int capacity)
 {
     send(s, data, capacity, 0);
 }
-void showWhatTypeResponse(int command)
+void showWhatCommandGetResponse(int command)
 {
     switch(command)
     {
@@ -23,11 +23,11 @@ int recieveMessage(SOCKET s)
     memset(header, 0, length);
     recv(s, header, length, 0);
 
-    showWhatTypeResponse((int)header[2]);
+    showWhatCommandGetResponse((int)header[2]);
 
     for(int i = 0; i < length; ++i)
     {
-        printf("%d", header[i]);
+        printf("%d ", header[i]);
     }
     printf(" ");
     int body_size = header[3]+1;
@@ -36,7 +36,7 @@ int recieveMessage(SOCKET s)
     recv(s, body_buf, body_size, 0);
     for(int i = 0; i < body_size; ++i)
     {
-        printf("%d", body_buf[i]);
+        printf("%d ", body_buf[i]);
     }
     free(body_buf);
 
