@@ -43,7 +43,6 @@ int recieveMessage(SOCKET s)
     printf("\n");
 }
 
-
 int main()
 {
     printf("Client launced: v 1.0\n ");

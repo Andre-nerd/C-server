@@ -34,6 +34,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="command_devices_for_solution.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="common_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
