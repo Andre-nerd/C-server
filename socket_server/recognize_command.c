@@ -14,6 +14,10 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerOnOffCommand(input_data, sendResponse);
         break;
     }
+    case devices_for_solution:
+    {
+        handlerDevicesForSolutionCommand(input_data, sendResponse);
+    }
     };
 
 

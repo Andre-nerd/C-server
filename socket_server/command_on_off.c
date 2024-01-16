@@ -1,6 +1,7 @@
 #include "const.h"
 #include "common_utils.h"
 
+// Команда 0х00
 void handlerOnOffCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, int))
 {
     printf("handlerOnOffCommand working\n ");

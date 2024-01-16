@@ -11,9 +11,34 @@ void showWhatCommandGetResponse(int command)
     switch(command)
     {
     case 0:
+    {
         printf("Response by command ON/OFF\n");
         break;
     }
+    case 1:
+    {
+        printf("Response by command Devices for Solution\n");
+        break;
+    }
+
+    }
+}
+
+
+unsigned char crcCalc(unsigned char *buf, int len)
+{
+    unsigned char *ubyte = (unsigned char *)buf;
+
+    unsigned char crc = *ubyte;
+    ubyte++;
+    int i = 0;
+    while (++i < len)
+    {
+        crc ^= *ubyte;
+        ubyte++;
+    }
+
+    return crc;
 }
 
 int recieveMessage(SOCKET s)
@@ -66,22 +91,50 @@ int main()
         printf("connect res: %d\n", cnt);
     }
 
-    char command = 's';
+    char command = 0;
     do
     {
-        char mas[] = {36,0,0,1,1,78};
-        sendMessage(s,mas,sizeof(mas));
-        Sleep(500);
+        printf("command: 0- On/Off");
+        printf("command: 1-Get param 0x01  11 - Send comand 0x01\n");
+        scanf("%d", &command);
+        printf("input %d\n", command);
+        switch(command)
+        {
+        case 0:
+        {
+            char mas[] = {36,0,0,1,1,78};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 1:
+        {
+            unsigned char g[5] = {36,0x01,0x01,1,0x1E};
+            char crc = crcCalc(g, 5);
+            char mas[] = {36,0x01,0x01,1,0x1E,crc};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 11:
+        {
+            unsigned char g[5] = {36,0,0x01,1,0x1E};
+            char crc = crcCalc(g, 5);
+            char mas[] = {36,0,0x01,1,0x1E,crc};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        }
+
 
         recieveMessage(s);
 
-        printf("command: ");
-        scanf("%c", &command);
-        printf("input %d\n", command);
-
     }
-    while(command != 'q');
+    while(command != 999);
 
     closesocket(s);
     return 0;
 }
+
+
