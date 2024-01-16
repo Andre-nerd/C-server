@@ -50,3 +50,4 @@ unsigned char crcCalc(unsigned char *buf, int len)
 
     return crc;
 }
+

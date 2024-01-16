@@ -1,22 +1,22 @@
 #include "const.h"
 #include "common_utils.h"
 
-char setAmendment(char amendment, char mask)
+char setParamNavigationTelemerty()
 {
     //Устанавливаем подписки на поправки. Если успешно 0 иначе 0х10 некорректный выбор устройств
     return 0;
 }
 
-char getAmendment()
+char getParamNavigationTelemerty()
 {
     //Получаем действующие подписки
 
     return 0x07;
 }
 // Команда 0х02
-void handlerAmendmentCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, int))
+void handlerNavigationTelemertyCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, int))
 {
-    printf("handlerAmendmentCommand working\n ");
+    printf("handlerNavigationTelemertyCommand working\n ");
 
     switch(input_data->header[1])// Смотрим спецификатор
     {
@@ -46,3 +46,14 @@ void handlerAmendmentCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(ch
 }
 
 
+
+
+
+
+
+
+
+//
+//    float float_value = 43.5678;
+//    char float_bytes[sizeof(float)];
+//    memcpy(float_bytes, &float_value, sizeof(float));
