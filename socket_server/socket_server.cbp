@@ -34,9 +34,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="command_amendment.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_amendment.h" />
 		<Unit filename="command_devices_for_solution.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="command_devices_for_solution.h" />
+		<Unit filename="command_navigation_telemetry.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_navigation_telemetry.h" />
+		<Unit filename="command_on_off.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_on_off.h" />
 		<Unit filename="common_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -45,10 +58,6 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="on_off_command.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="on_off_command.h" />
 		<Unit filename="recognize_command.c">
 			<Option compilerVar="CC" />
 		</Unit>

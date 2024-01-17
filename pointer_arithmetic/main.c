@@ -3,6 +3,13 @@
 
 int main()
 {
+    char a[4] = {1,1,1,1};
+    char b[2] = {2,2};
+    char c[3] = {3,3,3};
+
+    concat(a,b);
+
+
     float float_value = 43.5678;
     char float_bytes[sizeof(float)];
     memcpy(float_bytes, &float_value, sizeof(float));
@@ -19,17 +26,6 @@ int main()
     return 0;
 }
 
-void get4BytesFromFloat(float value, char* arr)
-{
-    char* ptr = &value;
-    arr[0] = *ptr;
-    ptr++;
-    arr[1] = *ptr;
-    ptr++;
-    arr[2] = *ptr;
-    ptr++;
-    arr[3] = *ptr;
-}
 
 void get_bin_value(unsigned char v)
 {

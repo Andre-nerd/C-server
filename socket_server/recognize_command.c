@@ -24,6 +24,11 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerAmendmentCommand(input_data, sendResponse);
         break;
     }
+    case navigation_telemetry:
+    {
+        handlerNavigationTelemetryCommand(input_data, sendResponse);
+        break;
+    }
     };
 
 
