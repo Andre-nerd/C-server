@@ -172,9 +172,12 @@ int main()
         }
         case 33:
         {
-            unsigned char g[5] = {36,0,0x03,0x01,5};
+            char freq = 1;
+            printf("Set Frequency (0..5) = ");
+            scanf("%d",&freq);
+            unsigned char g[5] = {36,0,0x03,0x01,freq};
             char crc = crcCalc(g, 5);
-            char mas[6] = {36,0,0x03,0x01,5,crc};;
+            char mas[6] = {36,0,0x03,0x01,freq,crc};;
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;

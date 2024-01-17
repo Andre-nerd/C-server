@@ -1,6 +1,8 @@
 #include "const.h"
 #include "common_utils.h"
 
+
+
 char setParamNavigationTelemerty(char param)
 {
     //Команда настраивает частоту регулярных сообщений навигационной телеметрии
