@@ -16,7 +16,8 @@ typedef struct
 } STRUCT_RESPONSE;
 
 enum commands {
-    on_off_command = 0x00, devices_for_solution = 0x01, amendment_manage =  0x02, navigation_telemetry = 0x03
+    on_off_command = 0x00, devices_for_solution = 0x01, amendment_manage =  0x02, navigation_telemetry = 0x03,
+    module_telemetry = 0x04
 };
 enum specifications {
     direction = 0x00,

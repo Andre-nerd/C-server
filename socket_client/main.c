@@ -25,9 +25,14 @@ void showWhatCommandGetResponse(int command)
         printf("Response by command Amendment Manager\n");
         break;
     }
-        case 3:
+    case 3:
     {
         printf("Response by command Navigation Telemetry\n");
+        break;
+    }
+    case 4:
+    {
+        printf("Response by command Module Telemetry\n");
         break;
     }
 
@@ -106,6 +111,7 @@ int main()
     printf("command 0x01: 1-Get param 0x01  11 - Send command 0x01\n");
     printf("command 0x02: 2-Get param 0x02  22 - Send command 0x02\n");
     printf("command 0x03: 3-Get param 0x03  33 - Send command 0x03\n");
+    printf("command 0x04: 4-Get param 0x04  44 - Send command 0x04\n");
     do
     {
         scanf("%d", &command);
@@ -169,6 +175,24 @@ int main()
             unsigned char g[5] = {36,0,0x03,0x01,5};
             char crc = crcCalc(g, 5);
             char mas[6] = {36,0,0x03,0x01,5,crc};;
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 4:
+        {
+            unsigned char g[4] = {36,0x01,0x04,0};
+            char crc = crcCalc(g, 4);
+            char mas[5] = {36,0x01,0x04,1,crc};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 44:
+        {
+            unsigned char g[5] = {36,0,0x04,0x01,3};
+            char crc = crcCalc(g, 5);
+            char mas[6] = {36,0,0x04,0x01,3,crc};;
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;
