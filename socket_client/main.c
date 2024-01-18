@@ -137,7 +137,7 @@ int recieveMessage(SOCKET s)
     for(int i=0; i<length_without_crc-4;++i){
         crc_buf[i+4] = body_buf[i];
     };
-    char crc = crcCalc(crc_buf, length_without_crc);
+    unsigned char crc = crcCalc(crc_buf, length_without_crc);
     if(crc == body_buf[header[3]]){
         printf("CRC is correct = %d\n",crc);
     } else {

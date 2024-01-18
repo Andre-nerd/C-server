@@ -31,4 +31,7 @@ enum specifications {
 char telemetry_frequency;
 char navigation_frequency;
 
+int imitation_cycle_navigation;
+int imitation_cycle_telemetry;
+
 #endif // CONST_H_INCLUDED

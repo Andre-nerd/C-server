@@ -20,10 +20,51 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     char wifiRTTALL;
     char wifiRTTSolution;
 
-    latitude = 55.3786;
-    longitude = 37.4532;
-    altitude = 123.45;
-    precision = 4.52;
+    switch(imitation_cycle_navigation)// Только для имитации изменения координат в тестовом режиме
+    {
+    case 0:
+    {
+        latitude = 55.3786;
+        longitude = 37.4532;
+        altitude = 123.45;
+        precision = 4.52;
+        break;
+    }
+    case 1:
+    {
+        latitude = 55.378673;
+        longitude = 37.453298;
+        altitude = 120.45;
+        precision = 6.72;
+        break;
+    }
+    case 2:
+    {
+        latitude = 55.378665;
+        longitude = 37.453274;
+        altitude = 121.01;
+        precision = 5.721;
+        break;
+    }
+    case 3:
+    {
+        latitude = 55.378699;
+        longitude = 37.453300;
+        altitude = 123.12;
+        precision = 3.22;
+        break;
+    }
+    case 4:
+    {
+        latitude = 55.3787001;
+        longitude = 37.4532021;
+        altitude = 123.76;
+        precision = 4.89;
+        break;
+    }
+    };
+
+
     valid = 1;
     devices = 7;
     modeGNSS = 1;
@@ -46,7 +87,8 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     memcpy(precision_bytes, &precision, sizeof(float));
 
     char body[32] = {36,0x04,0x03,0x1B};
-    for(int i=0; i < 4; ++i){
+    for(int i=0; i < 4; ++i)
+    {
         body[i+4] = latitude_bytes[i];
         body[i+8] = longitude_bytes[i];
         body[i+12] = altitude_bytes[i];

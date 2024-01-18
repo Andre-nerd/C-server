@@ -49,17 +49,20 @@ int main()
     {
         printf("The client has connected\n");
         clock_t telemetry_start = clock(),navigation_start = clock(), telemetry_diff, navigation_diff;
+        imitation_cycle_navigation = 0; //Счетчик для имитации изменения координат. Только тестовый режим
+        imitation_cycle_telemetry = 0; //Счетчик для имитации изменения телеметрии модуля. Только тестовый режим
         while(1)
         {
-
             if(telemetry_frequency != 0) // Send regular telemetry module message
             {
                 telemetry_diff = clock() - telemetry_start;
                 int msec_telemetry = telemetry_diff * 1000 / CLOCKS_PER_SEC ;
                 if(msec_telemetry >= 1000 / telemetry_frequency)
                 {
-                    printf("telemetry module_frequency %d\n", telemetry_frequency);
+                    sendRegularTelemetryMessage(sendResponse);
                     telemetry_start = clock();
+                    imitation_cycle_telemetry++;
+                    if (imitation_cycle_telemetry > 4) imitation_cycle_telemetry = 0;
                 }
             }
 
@@ -71,6 +74,8 @@ int main()
                 {
                     sendRegularNavigationMessage(sendResponse);
                     navigation_start = clock();
+                    imitation_cycle_navigation++;
+                    if (imitation_cycle_navigation > 4) imitation_cycle_navigation = 0;
                 }
             }
 
