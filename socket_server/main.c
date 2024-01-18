@@ -52,7 +52,7 @@ int main()
         while(1)
         {
 
-            if(telemetry_frequency != 0)
+            if(telemetry_frequency != 0) // Send regular telemetry module message
             {
                 telemetry_diff = clock() - telemetry_start;
                 int msec_telemetry = telemetry_diff * 1000 / CLOCKS_PER_SEC ;
@@ -63,13 +63,13 @@ int main()
                 }
             }
 
-            if(navigation_frequency != 0)
+            if(navigation_frequency != 0) // Send regular navigation message
             {
                 navigation_diff = clock() - navigation_start;
                 int msec_navigation = navigation_diff * 1000 / CLOCKS_PER_SEC ;
                 if(msec_navigation >= 1000 / navigation_frequency)
                 {
-                    printf("navigation_frequency %d\n", navigation_frequency);
+                    sendRegularNavigationMessage(sendResponse);
                     navigation_start = clock();
                 }
             }

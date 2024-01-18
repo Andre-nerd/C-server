@@ -31,6 +31,19 @@ void printStructCommand(char *header, char *body)
     printf("%d",body[header[3]]);
     printf("\n");
 }
+void printCommandByBytes(unsigned char *body, int length_body)
+{
+    for( int i = 0; i < HEADER_SIZE ; ++i )
+    {
+        printf("%d ", (char) body[i]);
+    }
+    printf("  ");
+    for( int i = HEADER_SIZE; i < length_body ; ++i )
+    {
+        printf("%d ", body[i]);
+    }
+    printf("\n");
+}
 
 //   Функция возвращает контрольную сумму CRC8 (XOR) данных в буффере buf
 //    длинной len

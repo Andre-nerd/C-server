@@ -2,6 +2,56 @@
 #include <stdlib.h>
 #include <winsock2.h>
 
+#define TIME_WAIT_SOCKET 200000
+
+SOCKET s;
+fd_set Fds;
+struct timeval stv = {0, TIME_WAIT_SOCKET};
+HANDLE hThread;
+int thread_finish = 0;
+
+
+DWORD WINAPI ThreadFunc(LPVOID lpParam)
+{
+    do
+    {
+        FD_ZERO(&Fds);
+        FD_SET(s, &Fds);
+        if (select(s + 1,&Fds, NULL, NULL, &stv) > 0)
+        {
+            recieveMessage(s);
+        }
+    }
+    while(thread_finish != 1);
+    return 0;
+}
+
+void createRegularThread()
+{
+    DWORD dwThreadId, dwThrdParam = 1;
+
+    hThread = CreateThread(
+
+                  NULL,         // атрибуты безопасности по умолчанию
+
+                  0,            // размер стека используется по умолчанию
+
+                  ThreadFunc,   // функция потока
+
+                  &dwThrdParam, // аргумент функции потока
+
+                  0,            // флажки создания используются по умолчанию
+
+                  &dwThreadId); // возвращает идентификатор потока
+
+// При успешном завершении проверяет возвращаемое значение.
+    if (hThread == NULL)
+
+    {
+        printf("CreateThread failed.\n" );
+    }
+}
+
 int sendMessage(SOCKET s, short* data, int capacity)
 {
     send(s, data, capacity, 0);
@@ -58,7 +108,7 @@ unsigned char crcCalc(unsigned char *buf, int len)
 
 int recieveMessage(SOCKET s)
 {
-    char header[4];
+    unsigned char header[4];
     int length = sizeof(header);
     memset(header, 0, length);
     recv(s, header, length, 0);
@@ -71,13 +121,29 @@ int recieveMessage(SOCKET s)
     }
     printf(" ");
     int body_size = header[3]+1;
-    char* body_buf = (char*) malloc(body_size);
+    unsigned char* body_buf = (char*) malloc(body_size);
     memset(body_buf, 0, body_size);
     recv(s, body_buf, body_size, 0);
     for(int i = 0; i < body_size; ++i)
     {
         printf("%d ", body_buf[i]);
     }
+
+    int length_without_crc = 4 + header[3];
+    unsigned char* crc_buf = (char*) malloc(length_without_crc);
+    for (int i = 0; i <4;++i){
+        crc_buf[i] = header[i];
+    };
+    for(int i=0; i<length_without_crc-4;++i){
+        crc_buf[i+4] = body_buf[i];
+    };
+    char crc = crcCalc(crc_buf, length_without_crc);
+    if(crc == body_buf[header[3]]){
+        printf("CRC is correct = %d\n",crc);
+    } else {
+        printf("! CRC is not correct = %d\n",crc);
+    }
+    free(crc_buf);
     free(body_buf);
 
     printf("\n");
@@ -89,7 +155,6 @@ int main()
     WSADATA ws;
     WSAStartup(MAKEWORD(2,2), &ws);
 
-    SOCKET s;
     s = socket(AF_INET, SOCK_STREAM,0);
 
     SOCKADDR_IN sa;
@@ -105,6 +170,7 @@ int main()
         cnt = connect(s, &sa, sizeof(sa) );
         printf("connect res: %d\n", cnt);
     }
+    createRegularThread();
 
     char command = 0;
     printf("command 0x00:- On/Off");
@@ -114,6 +180,7 @@ int main()
     printf("command 0x04: 4-Get param 0x04  44 - Send command 0x04\n");
     do
     {
+
         scanf("%d", &command);
         printf("input %d\n", command);
         switch(command)
@@ -205,13 +272,12 @@ int main()
         }
         }
 
-
-        recieveMessage(s);
-
     }
     while(command != 999);
 
+    CloseHandle( hThread );
     closesocket(s);
+
     return 0;
 }
 

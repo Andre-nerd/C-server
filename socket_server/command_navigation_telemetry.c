@@ -2,6 +2,74 @@
 #include "common_utils.h"
 
 
+void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
+{
+    float latitude;
+    float longitude;
+    float altitude;
+    float precision;
+    char valid;
+    char devices;
+    char modeGNSS;
+    char satellitesAll;
+    char satellitesSolution;
+    char stantionLSNALL;
+    char stantionLSNSolution;
+    char iBeaconALL;
+    char iBeaconSolution;
+    char wifiRTTALL;
+    char wifiRTTSolution;
+
+    latitude = 55.3786;
+    longitude = 37.4532;
+    altitude = 123.45;
+    precision = 4.52;
+    valid = 1;
+    devices = 7;
+    modeGNSS = 1;
+    satellitesAll = 11;
+    satellitesSolution = 8;
+    stantionLSNALL = 7;
+    stantionLSNSolution = 4;
+    iBeaconALL = 8;
+    iBeaconSolution = 4;
+    wifiRTTALL = 12;
+    wifiRTTSolution = 9;
+
+    char latitude_bytes[sizeof(float)];
+    memcpy(latitude_bytes, &latitude, sizeof(float));
+    char longitude_bytes[sizeof(float)];
+    memcpy(longitude_bytes, &longitude, sizeof(float));
+    char altitude_bytes[sizeof(float)];
+    memcpy(altitude_bytes, &altitude, sizeof(float));
+    char precision_bytes[sizeof(float)];
+    memcpy(precision_bytes, &precision, sizeof(float));
+
+    char body[32] = {36,0x04,0x03,0x1B};
+    for(int i=0; i < 4; ++i){
+        body[i+4] = latitude_bytes[i];
+        body[i+8] = longitude_bytes[i];
+        body[i+12] = altitude_bytes[i];
+        body[i+16] = precision_bytes[i];
+    }
+    body[20] = valid;
+    body[21] = devices;
+    body[22] = modeGNSS;
+    body[23] = satellitesAll;
+    body[24] = satellitesSolution;
+    body[25] = stantionLSNALL;
+    body[26] = stantionLSNSolution;
+    body[27] = iBeaconALL;
+    body[28] = iBeaconSolution;
+    body[29] = wifiRTTALL;
+    body[30] = wifiRTTSolution;
+
+    char crc = crcCalc(body,31);
+    body[31] = crc;
+    printf("send Regular Navigation message\n");
+    printCommandByBytes(body, sizeof(body));
+    sendResponse(body,32);
+}
 
 char setParamNavigationTelemerty(char param)
 {
