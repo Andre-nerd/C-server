@@ -3,13 +3,14 @@
 #include <winsock2.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <time.h>
 #include "recognize_command.h"
 #include "const.h"
 #include "common_utils.h"
 
 SOCKET client_socket;
 fd_set Fds;
-struct timeval stv = {0, 250000};
+struct timeval stv = {0, TIME_WAIT_SOCKET};
 
 void sendResponse(char* response, int length_response )
 {
@@ -47,10 +48,33 @@ int main()
     while(client_socket = accept(s, &client_addr, &client_addr_size))
     {
         printf("The client has connected\n");
+        clock_t telemetry_start = clock(),navigation_start = clock(), telemetry_diff, navigation_diff;
         while(1)
         {
-            printf("navigation_frequency %d\n", navigation_frequency);
-            printf("telemetry module_frequency %d\n", telemetry_frequency);
+
+            if(telemetry_frequency != 0)
+            {
+                telemetry_diff = clock() - telemetry_start;
+                int msec_telemetry = telemetry_diff * 1000 / CLOCKS_PER_SEC ;
+                if(msec_telemetry >= 1000 / telemetry_frequency)
+                {
+                    printf("telemetry module_frequency %d\n", telemetry_frequency);
+                    telemetry_start = clock();
+                }
+            }
+
+            if(navigation_frequency != 0)
+            {
+                navigation_diff = clock() - navigation_start;
+                int msec_navigation = navigation_diff * 1000 / CLOCKS_PER_SEC ;
+                if(msec_navigation >= 1000 / navigation_frequency)
+                {
+                    printf("navigation_frequency %d\n", navigation_frequency);
+                    navigation_start = clock();
+                }
+            }
+
+
 
             FD_ZERO(&Fds);
             FD_SET(client_socket, &Fds);

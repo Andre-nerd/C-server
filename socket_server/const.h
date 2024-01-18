@@ -2,6 +2,7 @@
 #define CONST_H_INCLUDED
 
 #define HEADER_SIZE 4
+#define TIME_WAIT_SOCKET 200000
 #define SHORT_RESPONSE_LENGTH 6
 typedef struct
 {
