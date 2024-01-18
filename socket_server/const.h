@@ -27,5 +27,7 @@ enum specifications {
     regular_message = 0x04
 
 };
+char telemetry_frequency;
+char navigation_frequency;
 
 #endif // CONST_H_INCLUDED

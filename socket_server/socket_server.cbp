@@ -42,6 +42,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="command_devices_for_solution.h" />
+		<Unit filename="command_module_telemetry.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_module_telemetry.h" />
 		<Unit filename="command_navigation_telemetry.c">
 			<Option compilerVar="CC" />
 		</Unit>

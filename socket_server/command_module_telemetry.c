@@ -1,12 +1,14 @@
 #include "const.h"
 #include "common_utils.h"
 
+
 char setParamModuleTelemerty(char param)
 {
     //Команда настраивает частоту регулярных сообщений телеметрии модуля
     // 0 - прислать один раз или выключить отправку
     // 1 - 1Гц, 2 - 2 Гц, 3 - 5 Гц, 4 - 10 Гц, 5 - 20 Гц.
     // Возвращает 0 или 0х10 - некорректная частота
+    telemetry_frequency = param;
     return 0;
 }
 

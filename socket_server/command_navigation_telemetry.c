@@ -9,6 +9,7 @@ char setParamNavigationTelemerty(char param)
     // 0 - прислать один раз или выключить отправку
     // 1 - 1√ц, 2 - 2 √ц, 3 - 5 √ц, 4 - 10 √ц, 5 - 20 √ц.
     // ¬озвращает 0 или 0х10 - некорректна€ частота
+    navigation_frequency = param;
     return 0;
 }
 

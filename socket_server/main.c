@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <winsock2.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "recognize_command.h"
 #include "const.h"
 #include "common_utils.h"
 
 SOCKET client_socket;
+fd_set Fds;
+struct timeval stv = {0, 250000};
 
 void sendResponse(char* response, int length_response )
 {
@@ -14,7 +18,11 @@ void sendResponse(char* response, int length_response )
 
 int main()
 {
+    navigation_frequency  = 0;
+    navigation_frequency = 0;
     printf("Server launced: v 3.0\n ");
+
+
     WSADATA ws;
     WSAStartup(MAKEWORD(2,2), &ws);
 
@@ -29,6 +37,7 @@ int main()
     bind(s, &sa, sizeof(sa));
     listen(s, 100);
 
+
     char head_buf[HEADER_SIZE];
     memset(head_buf, 0, sizeof(head_buf));
 
@@ -40,16 +49,25 @@ int main()
         printf("The client has connected\n");
         while(1)
         {
-            recv(client_socket, head_buf, sizeof(head_buf), 0);
+            printf("navigation_frequency %d\n", navigation_frequency);
+            printf("telemetry module_frequency %d\n", telemetry_frequency);
 
-            unsigned char body_size = head_buf[3] + 1;
-            char* body_buf = (char*) malloc(body_size);
-            if(body_buf != NULL)
+            FD_ZERO(&Fds);
+            FD_SET(client_socket, &Fds);
+            if (select(client_socket + 1,&Fds, NULL, NULL, &stv) > 0)
             {
-                recv(client_socket, body_buf, sizeof(body_buf), 0);
-                STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
-                recognize_command(&input_data, sendResponse);
-                free(body_buf);
+                recv(client_socket, head_buf, sizeof(head_buf), 0);
+
+                unsigned char body_size = head_buf[3] + 1;
+                char* body_buf = (char*) malloc(body_size);
+                if(body_buf != NULL)
+                {
+                    recv(client_socket, body_buf, sizeof(body_buf), 0);
+                    STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
+                    recognize_command(&input_data, sendResponse);
+                    free(body_buf);
+                }
+
             }
         }
     }

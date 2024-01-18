@@ -173,7 +173,7 @@ int main()
         case 33:
         {
             char freq = 1;
-            printf("Set Frequency (0..5) = ");
+            printf("Set Navigation Frequency (0..5) = ");
             scanf("%d",&freq);
             unsigned char g[5] = {36,0,0x03,0x01,freq};
             char crc = crcCalc(g, 5);
@@ -193,9 +193,12 @@ int main()
         }
         case 44:
         {
-            unsigned char g[5] = {36,0,0x04,0x01,3};
+            char freq = 1;
+            printf("Set Telemetry Module Frequency (0..5) = ");
+            scanf("%d",&freq);
+            unsigned char g[5] = {36,0,0x04,0x01,freq};
             char crc = crcCalc(g, 5);
-            char mas[6] = {36,0,0x04,0x01,3,crc};;
+            char mas[6] = {36,0,0x04,0x01,freq,crc};;
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;
