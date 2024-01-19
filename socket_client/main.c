@@ -51,6 +51,29 @@ void createRegularThread()
         printf("CreateThread failed.\n" );
     }
 }
+unsigned char crcCalc(unsigned char *buf, int len)
+{
+    unsigned char *ubyte = (unsigned char *)buf;
+
+    unsigned char crc = *ubyte;
+    ubyte++;
+    int i = 0;
+    while (++i < len)
+    {
+        crc ^= *ubyte;
+        ubyte++;
+    }
+
+    return crc;
+}
+
+void requestCommonParameters()
+{
+    unsigned char mas[5] = {36,0x01,0x07,0x00};
+    char crc = crcCalc(mas, 4);
+    mas[4] = crc;
+    sendMessage(s,mas,sizeof(mas));
+}
 
 int sendMessage(SOCKET s, unsigned short* data, int capacity)
 {
@@ -94,22 +117,6 @@ void showWhatCommandGetResponse(int command)
     }
 }
 
-
-unsigned char crcCalc(unsigned char *buf, int len)
-{
-    unsigned char *ubyte = (unsigned char *)buf;
-
-    unsigned char crc = *ubyte;
-    ubyte++;
-    int i = 0;
-    while (++i < len)
-    {
-        crc ^= *ubyte;
-        ubyte++;
-    }
-
-    return crc;
-}
 
 int recieveMessage(SOCKET s)
 {
@@ -180,7 +187,9 @@ int main()
         cnt = connect(s, &sa, sizeof(sa) );
         printf("connect res: %d\n", cnt);
     }
+
     createRegularThread();
+    requestCommonParameters();
 
     char command = 0;
     printf("command 0x00:- On/Off");
@@ -190,6 +199,7 @@ int main()
     printf("command 0x04: 4-Get param 0x04  44 - Send command 0x04\n");
     printf("command 0x05: 5-Get param 0x05  55 - Send command 0x05\n");
     printf("command 0x06: 6-Close file by descriptor\n");
+    printf("command 0x07: 7- Request common module parameters \n");
     do
     {
 
@@ -314,6 +324,12 @@ int main()
             char crc = crcCalc(mas, 5);
             mas[5] = crc;
             sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 7:
+        {
+            requestCommonParameters();
             Sleep(500);
             break;
         }

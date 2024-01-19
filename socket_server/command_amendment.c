@@ -4,6 +4,8 @@
 char setAmendment(char amendment, char mask)
 {
     //Устанавливаем подписки на поправки. Если успешно 0 иначе 0х10 некорректный выбор устройств
+    // Применяются только те поля, значения которых у mask = 1
+    settingAmendment = amendment;
     return 0;
 }
 

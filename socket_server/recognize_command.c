@@ -44,6 +44,11 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerCloseFileWriteCommand(input_data, sendResponse);
         break;
     }
+    case request_common_param:
+    {
+        handlerRequestParamModuleCommand(input_data, sendResponse);
+        break;
+    }
     };
 
 
