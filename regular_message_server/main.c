@@ -7,6 +7,8 @@
 
 SOCKET client_socket;
 int sleeping_time = 1000;
+fd_set Fds;
+struct timeval stv = {0, 25000};
 
 void sendResponse(char* response, int length_response )
 {
@@ -14,7 +16,8 @@ void sendResponse(char* response, int length_response )
 }
 DWORD WINAPI ThreadFunc(LPVOID lpParam)
 {
-    while(1){
+    while(1)
+    {
         printf("Thread working...| Sleep %d\n", sleeping_time);
         Sleep(sleeping_time);
     }
@@ -31,6 +34,8 @@ DWORD WINAPI ThreadFunc(LPVOID lpParam)
 
 int main()
 {
+start:
+    client_socket = 0;
     printf("Server launced: v 3.0\n ");
     WSADATA ws;
     WSAStartup(MAKEWORD(2,2), &ws);
@@ -51,61 +56,82 @@ int main()
 
     SOCKADDR_IN client_addr;
     int client_addr_size = sizeof(client_addr);
+    client_socket = accept(s, &client_addr, &client_addr_size);
+    printf("client_socket = %d\n",client_socket);
 
-    while(client_socket = accept(s, &client_addr, &client_addr_size))
+    while(1)
     {
-        printf("The client has connected\n");
-//        while(1)
-//        {
-//            recv(client_socket, head_buf, sizeof(head_buf), 0);
-//
-//            unsigned char body_size = head_buf[3] + 1;
-//            char* body_buf = (char*) malloc(body_size);
-//            if(body_buf != NULL)
-//            {
-//                recv(client_socket, body_buf, sizeof(body_buf), 0);
-////                STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
-////                recognize_command(&input_data, sendResponse);
-//                free(body_buf);
-//            }
-//        }
-        DWORD dwThreadId, dwThrdParam = 1;
+        FD_ZERO(&Fds);
+        FD_SET(client_socket, &Fds);
+        if (select(client_socket + 1,&Fds, NULL, NULL, &stv) > 0)
+        {
+            int response = recv(client_socket, head_buf, sizeof(head_buf), 0);
+            printf("response = %d\n", response);
+            if(response == -1)
+            {
+                break;
 
-        HANDLE hThread;
-
-        char szMsg[80];
-        hThread = CreateThread(
-
-                      NULL,         // атрибуты безопасности по умолчанию
-
-                      0,            // размер стека используется по умолчанию
-
-                      ThreadFunc,   // функция потока
-
-                      &dwThrdParam, // аргумент функции потока
-
-                      0,            // флажки создания используются по умолчанию
-
-                      &dwThreadId); // возвращает идентификатор потока
-
-// При успешном завершении проверяет возвращаемое значение.
-        printf("Set sleep time");
-        scanf("%d", &sleeping_time);
-//        if (hThread == NULL)
-//
-//        {
-//            wsprintf( szMsg, "CreateThread failed." );
-//            MessageBox( NULL, szMsg, "main", MB_OK );
-//        }
-//        else
-//        {
-//            _getch();
-//            CloseHandle( hThread );
-//        }
-
+            }
+        }
+        Sleep(500);
+        printf("next step\n");
     }
+
+//    while(client_socket)
+//    {
+//        printf("The client has connected\n");
+////        while(1)
+////        {
+////            recv(client_socket, head_buf, sizeof(head_buf), 0);
+////
+////            unsigned char body_size = head_buf[3] + 1;
+////            char* body_buf = (char*) malloc(body_size);
+////            if(body_buf != NULL)
+////            {
+////                recv(client_socket, body_buf, sizeof(body_buf), 0);
+//////                STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
+//////                recognize_command(&input_data, sendResponse);
+////                free(body_buf);
+////            }
+////        }
+//        DWORD dwThreadId, dwThrdParam = 1;
+//
+//        HANDLE hThread;
+//
+//        char szMsg[80];
+//        hThread = CreateThread(
+//
+//                      NULL,         // атрибуты безопасности по умолчанию
+//
+//                      0,            // размер стека используется по умолчанию
+//
+//                      ThreadFunc,   // функция потока
+//
+//                      &dwThrdParam, // аргумент функции потока
+//
+//                      0,            // флажки создания используются по умолчанию
+//
+//                      &dwThreadId); // возвращает идентификатор потока
+//
+//// При успешном завершении проверяет возвращаемое значение.
+//        printf("Set sleep time");
+//        scanf("%d", &sleeping_time);
+////        if (hThread == NULL)
+////
+////        {
+////            wsprintf( szMsg, "CreateThread failed." );
+////            MessageBox( NULL, szMsg, "main", MB_OK );
+////        }
+////        else
+////        {
+////            _getch();
+////            CloseHandle( hThread );
+////        }
+//
+//    }
 
 
     closesocket(s);
+    goto start;
     return 0;
 }
