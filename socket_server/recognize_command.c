@@ -39,6 +39,11 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerOpenFileWriteCommand(input_data, sendResponse);
         break;
     }
+    case close_file_write:
+    {
+        handlerCloseFileWriteCommand(input_data, sendResponse);
+        break;
+    }
     };
 
 

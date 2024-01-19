@@ -136,16 +136,21 @@ int recieveMessage(SOCKET s)
 
     int length_without_crc = 4 + header[3];
     unsigned char* crc_buf = (char*) malloc(length_without_crc);
-    for (int i = 0; i <4;++i){
+    for (int i = 0; i <4; ++i)
+    {
         crc_buf[i] = header[i];
     };
-    for(int i=0; i<length_without_crc-4;++i){
+    for(int i=0; i<length_without_crc-4; ++i)
+    {
         crc_buf[i+4] = body_buf[i];
     };
     unsigned char crc = crcCalc(crc_buf, length_without_crc);
-    if(crc == body_buf[header[3]]){
+    if(crc == body_buf[header[3]])
+    {
         printf("CRC is correct = %d\n",crc);
-    } else {
+    }
+    else
+    {
         printf("! CRC is not correct = %d\n",crc);
     }
     free(crc_buf);
@@ -184,6 +189,7 @@ int main()
     printf("command 0x03: 3-Get param 0x03  33 - Send command 0x03\n");
     printf("command 0x04: 4-Get param 0x04  44 - Send command 0x04\n");
     printf("command 0x05: 5-Get param 0x05  55 - Send command 0x05\n");
+    printf("command 0x06: 6-Close file by descriptor\n");
     do
     {
 
@@ -291,11 +297,22 @@ int main()
             unsigned char file_name_current[9] = "exam_name";
 
             unsigned char mas[15] = {36,0,0x05,0xA,record_component};
-            for(int i = 5; i < 14; i++){
+            for(int i = 5; i < 14; i++)
+            {
                 mas[i] = file_name_current[i-5];
             }
             char crc = crcCalc(mas, 14);
             mas[14] = crc;
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 6:
+        {
+            unsigned char descriptor_file = 43;
+            unsigned char mas[6] = {36,0x00,0x06,0x01,descriptor_file};
+            char crc = crcCalc(mas, 5);
+            mas[5] = crc;
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;

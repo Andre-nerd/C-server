@@ -61,14 +61,6 @@ void handlerOpenFileWriteCommand(STRUCT_COMMAND *input_data, void (*sendResponse
 
         char crc = crcCalc(body, 16);
         body[16] = crc;
-        printf("\n Send ");
-        for(int i =0; i < 7; i++){
-            printf("%d", body[i]);
-        }
-        for(int i =7; i < 16; i++){
-            printf("%c", body[i]);
-        }
-        printf("%d\n",body[16]);
         sendResponse(body,17);
         break;
     }
