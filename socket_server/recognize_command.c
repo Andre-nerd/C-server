@@ -34,6 +34,11 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerModuleTelemetryCommand(input_data, sendResponse);
         break;
     }
+    case open_file_write:
+    {
+        handlerOpenFileWriteCommand(input_data, sendResponse);
+        break;
+    }
     };
 
 

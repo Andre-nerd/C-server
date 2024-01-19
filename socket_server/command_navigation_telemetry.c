@@ -129,7 +129,7 @@ char getParamNavigationTelemerty()
     // 0 - Отправка отключена
     // 1 - 1Гц, 2 - 2 Гц, 3 - 5 Гц, 4 - 10 Гц, 5 - 20 Гц.
 
-    return 0x05;
+    return navigation_frequency;
 }
 // Команда 0х02
 void handlerNavigationTelemetryCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, int))

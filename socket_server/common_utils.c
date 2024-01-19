@@ -64,3 +64,11 @@ unsigned char crcCalc(unsigned char *buf, int len)
     return crc;
 }
 
+void get_bin_value(unsigned char v){
+  for (int i = 0; i < 8; i++) {
+    printf("%c", (v & 0x80) ? '1' : '0');
+    v <<= 1;
+  }
+  printf("\n");
+  return 0;
+}

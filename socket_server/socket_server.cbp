@@ -54,6 +54,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="command_on_off.h" />
+		<Unit filename="command_open_file_write.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_open_file_write.h" />
 		<Unit filename="common_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>

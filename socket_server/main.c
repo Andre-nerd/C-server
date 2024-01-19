@@ -91,7 +91,8 @@ int main()
                 char* body_buf = (char*) malloc(body_size);
                 if(body_buf != NULL)
                 {
-                    recv(client_socket, body_buf, sizeof(body_buf), 0);
+                    recv(client_socket, body_buf, body_size, 0);
+
                     STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
                     recognize_command(&input_data, sendResponse);
                     free(body_buf);

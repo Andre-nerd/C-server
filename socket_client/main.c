@@ -52,7 +52,7 @@ void createRegularThread()
     }
 }
 
-int sendMessage(SOCKET s, short* data, int capacity)
+int sendMessage(SOCKET s, unsigned short* data, int capacity)
 {
     send(s, data, capacity, 0);
 }
@@ -83,6 +83,11 @@ void showWhatCommandGetResponse(int command)
     case 4:
     {
         printf("Response by command Module Telemetry\n");
+        break;
+    }
+    case 5:
+    {
+        printf("Response by command Open File for record\n");
         break;
     }
 
@@ -178,6 +183,7 @@ int main()
     printf("command 0x02: 2-Get param 0x02  22 - Send command 0x02\n");
     printf("command 0x03: 3-Get param 0x03  33 - Send command 0x03\n");
     printf("command 0x04: 4-Get param 0x04  44 - Send command 0x04\n");
+    printf("command 0x05: 5-Get param 0x05  55 - Send command 0x05\n");
     do
     {
 
@@ -266,6 +272,30 @@ int main()
             unsigned char g[5] = {36,0,0x04,0x01,freq};
             char crc = crcCalc(g, 5);
             char mas[6] = {36,0,0x04,0x01,freq,crc};;
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 5:
+        {
+            unsigned char g[4] = {36,0x01,0x05,0};
+            char crc = crcCalc(g, 4);
+            char mas[5] = {36,0x01,0x05,0,crc};
+            sendMessage(s,mas,sizeof(mas));
+            Sleep(500);
+            break;
+        }
+        case 55:
+        {
+            char record_component = 7;
+            unsigned char file_name_current[9] = "exam_name";
+
+            unsigned char mas[15] = {36,0,0x05,0xA,record_component};
+            for(int i = 5; i < 14; i++){
+                mas[i] = file_name_current[i-5];
+            }
+            char crc = crcCalc(mas, 14);
+            mas[14] = crc;
             sendMessage(s,mas,sizeof(mas));
             Sleep(500);
             break;

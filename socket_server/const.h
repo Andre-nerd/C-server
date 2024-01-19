@@ -4,6 +4,7 @@
 #define HEADER_SIZE 4
 #define TIME_WAIT_SOCKET 200000
 #define SHORT_RESPONSE_LENGTH 6
+#define F_NAME_LENGTH 9
 typedef struct
 {
     char header[HEADER_SIZE];
@@ -18,7 +19,7 @@ typedef struct
 
 enum commands {
     on_off_command = 0x00, devices_for_solution = 0x01, amendment_manage =  0x02, navigation_telemetry = 0x03,
-    module_telemetry = 0x04
+    module_telemetry = 0x04, open_file_write = 0x05
 };
 enum specifications {
     direction = 0x00,
@@ -28,10 +29,18 @@ enum specifications {
     regular_message = 0x04
 
 };
-char telemetry_frequency;
-char navigation_frequency;
 
 int imitation_cycle_navigation;
 int imitation_cycle_telemetry;
+
+// ¬ременное хранилище параметров устройства
+char telemetry_frequency; // „астота выдачи регул€рного сообщени€ с данными телеметрии модул€
+char navigation_frequency; // „астота выдачи регул€рного сообщени€ с данными навигации
+
+// ¬ременное хранилище параметров записи в файл
+char components_for_recording;
+char file_descriptor;
+char file_name[F_NAME_LENGTH];
+
 
 #endif // CONST_H_INCLUDED

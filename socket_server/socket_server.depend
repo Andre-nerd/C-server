@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1705413175 source:c:\candcplus\projects\c-server\socket_server\common_utils.c
+1705567814 source:c:\candcplus\projects\c-server\socket_server\common_utils.c
 	"const.h"
 
-1705560754 c:\candcplus\projects\c-server\socket_server\const.h
+1705584211 c:\candcplus\projects\c-server\socket_server\const.h
 
-1705562811 source:c:\candcplus\projects\c-server\socket_server\main.c
+1705578289 source:c:\candcplus\projects\c-server\socket_server\main.c
 	<stdio.h>
 	<stdlib.h>
 	<winsock2.h>
@@ -17,7 +17,7 @@
 
 1705390266 c:\candcplus\projects\c-server\socket_server\recognize_command.h
 
-1704809787 c:\candcplus\projects\c-server\socket_server\common_utils.h
+1705565984 c:\candcplus\projects\c-server\socket_server\common_utils.h
 
 1704812139 source:c:\candcplus\projects\c-server\socket_server\on_off_command.c
 	"const.h"
@@ -31,11 +31,11 @@
 	"const.h"
 	"common_utils.h"
 
-1705500080 source:c:\candcplus\projects\c-server\socket_server\command_module_telemetry.c
+1705580182 source:c:\candcplus\projects\c-server\socket_server\command_module_telemetry.c
 	"const.h"
 	"common_utils.h"
 
-1705500080 source:c:\candcplus\projects\c-server\socket_server\command_navigation_telemetry.c
+1705580182 source:c:\candcplus\projects\c-server\socket_server\command_navigation_telemetry.c
 	"const.h"
 	"common_utils.h"
 
@@ -43,7 +43,11 @@
 	"const.h"
 	"common_utils.h"
 
-1705479916 source:c:\candcplus\projects\c-server\socket_server\recognize_command.c
+1705583224 source:c:\candcplus\projects\c-server\socket_server\recognize_command.c
 	"const.h"
 	"on_off_command.h"
+
+1705587715 source:c:\candcplus\projects\c-server\socket_server\command_open_file_write.c
+	"const.h"
+	"common_utils.h"
 

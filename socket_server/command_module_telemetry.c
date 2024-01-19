@@ -66,7 +66,7 @@ char getParamModuleTelemerty()
     // 0 - Отправка отключена
     // 1 - 1Гц, 2 - 2 Гц, 3 - 5 Гц, 4 - 10 Гц, 5 - 20 Гц.
 
-    return 0x03;
+    return telemetry_frequency;
 }
 // Команда 0х02
 void handlerModuleTelemetryCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, int))
