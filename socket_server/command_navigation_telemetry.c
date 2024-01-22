@@ -28,6 +28,14 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         longitude = 37.4532;
         altitude = 123.45;
         precision = 4.52;
+        satellitesAll = 11;
+        satellitesSolution = 0;
+        stantionLSNALL = 7;
+        stantionLSNSolution = 0;
+        iBeaconALL = 8;
+        iBeaconSolution = 0;
+        wifiRTTALL = 12;
+        wifiRTTSolution = 0;
         break;
     }
     case 1:
@@ -36,6 +44,14 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         longitude = 37.453298;
         altitude = 120.45;
         precision = 6.72;
+        satellitesAll = 15;
+        satellitesSolution = 0;
+        stantionLSNALL = 9;
+        stantionLSNSolution = 0;
+        iBeaconALL = 8;
+        iBeaconSolution = 4;
+        wifiRTTALL = 19;
+        wifiRTTSolution = 0;
         break;
     }
     case 2:
@@ -44,6 +60,14 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         longitude = 37.453274;
         altitude = 121.01;
         precision = 5.721;
+        satellitesAll = 11;
+        satellitesSolution = 4;
+        stantionLSNALL = 7;
+        stantionLSNSolution = 0;
+        iBeaconALL = 8;
+        iBeaconSolution = 0;
+        wifiRTTALL = 12;
+        wifiRTTSolution = 0;
         break;
     }
     case 3:
@@ -52,6 +76,14 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         longitude = 37.453300;
         altitude = 123.12;
         precision = 3.22;
+        satellitesAll = 15;
+        satellitesSolution = 4;
+        stantionLSNALL = 9;
+        stantionLSNSolution = 0;
+        iBeaconALL = 8;
+        iBeaconSolution = 0;
+        wifiRTTALL = 19;
+        wifiRTTSolution = 4;
         break;
     }
     case 4:
@@ -60,6 +92,14 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         longitude = 37.4532021;
         altitude = 123.76;
         precision = 4.89;
+                satellitesAll = 15;
+        satellitesSolution = 0;
+        stantionLSNALL = 9;
+        stantionLSNSolution = 5;
+        iBeaconALL = 8;
+        iBeaconSolution = 0;
+        wifiRTTALL = 19;
+        wifiRTTSolution = 0;
         break;
     }
     };
@@ -68,14 +108,7 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     valid = 1;
     devices = 7;
     modeGNSS = 1;
-    satellitesAll = 11;
-    satellitesSolution = 8;
-    stantionLSNALL = 7;
-    stantionLSNSolution = 4;
-    iBeaconALL = 8;
-    iBeaconSolution = 4;
-    wifiRTTALL = 12;
-    wifiRTTSolution = 9;
+
 
     char latitude_bytes[sizeof(float)];
     memcpy(latitude_bytes, &latitude, sizeof(float));

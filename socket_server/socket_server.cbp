@@ -38,6 +38,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="command_amendment.h" />
+		<Unit filename="command_close_file.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_close_file.h" />
 		<Unit filename="command_devices_for_solution.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -58,6 +62,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="command_open_file_write.h" />
+		<Unit filename="command_request_param_module.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_request_param_module.h" />
 		<Unit filename="common_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>

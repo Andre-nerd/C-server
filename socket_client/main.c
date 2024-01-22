@@ -180,7 +180,7 @@ int main()
     sa.sin_port = htons(9999);
     int cnt = -1;
 
-    sa.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+    sa.sin_addr.S_un.S_addr = inet_addr("192.168.43.93");
     while(cnt != 0)
     {
         Sleep(500);

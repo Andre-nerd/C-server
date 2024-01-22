@@ -19,8 +19,8 @@ void sendResponse(char* response, int length_response )
 
 int main()
 {
-    navigation_frequency  = 0;
-    navigation_frequency = 0;
+    navigation_frequency  = 1;
+    telemetry_frequency = 1;
 connect:
     printf("Server launced: v 3.0\n ");
 
