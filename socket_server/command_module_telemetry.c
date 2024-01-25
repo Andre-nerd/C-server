@@ -15,8 +15,8 @@ void sendRegularTelemetryMessage(void (*sendResponse)(char*, int))
 
     batteryVoltage = 7;
     batteryCurrent = 2;
-    weightRTK = 98;
-    weightPPP = 77;
+    weightRTK = 9801;
+    weightPPP = 37708;
     batteryChargeLevel = 1 + dCharge;
     dCharge++;
     if(dCharge == 98) dCharge = 1;
@@ -24,8 +24,8 @@ void sendRegularTelemetryMessage(void (*sendResponse)(char*, int))
     _chargeLevel |= (1 << 7);
 
     setting = 0;
-    lastAmendmentTimeRTK = 55;
-    lastAmendmentTimePPP = 77;
+    lastAmendmentTimeRTK = 134;
+    lastAmendmentTimePPP = 12;
 
     char batteryVoltage_bytes[sizeof(short)];
     memcpy(batteryVoltage_bytes, &batteryVoltage, sizeof(short));
