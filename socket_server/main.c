@@ -19,9 +19,10 @@ void sendResponse(char* response, int length_response )
 
 int main()
 {
+
+connect:
     navigation_frequency  = 1;
     telemetry_frequency = 1;
-connect:
     printf("Server launced: v 3.0\n ");
 
 
@@ -96,7 +97,7 @@ connect:
                 break;
             }
 
-            unsigned char body_size = head_buf[3] + 1;
+            unsigned char body_size = head_buf[4] + 1;
             char* body_buf = (char*) malloc(body_size);
             if(body_buf != NULL)
             {

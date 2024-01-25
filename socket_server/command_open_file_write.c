@@ -42,10 +42,10 @@ void handlerOpenFileWriteCommand(STRUCT_COMMAND *input_data, void (*sendResponse
     {
         char status = openFileForWrite(input_data->body);
 
-        char body[6] = {36, 0x02, 0x05, 0x02,status, file_descriptor};
-        char crc = crcCalc(body, 6);
-        char response[7] = {36, 0x02, 0x05, 0x02,status, file_descriptor,crc};
-        sendResponse(response,7);
+        char body[7] = {36, 0x02, 0x05, 0x00, 0x02,status, file_descriptor};
+        char crc = crcCalc(body, 7);
+        char response[8] = {36, 0x02, 0x05, 0x00, 0x02,status, file_descriptor,crc};
+        sendResponse(response,8);
         break;
     }
 
@@ -54,14 +54,14 @@ void handlerOpenFileWriteCommand(STRUCT_COMMAND *input_data, void (*sendResponse
     {
         unsigned char response[11] = {0};
         char status = getStatusOpenFileSolution(response);
-        unsigned char body[17] = {36, 0x03, 0x05, 0x0C, status};
-        for(int i = 5; i < 16; i++){
+        unsigned char body[18] = {36, 0x03, 0x05,0x00, 0x0C, status};
+        for(int i = 5; i < 17; i++){
             body[i] = response[i-5];
         }
 
-        char crc = crcCalc(body, 16);
-        body[16] = crc;
-        sendResponse(body,17);
+        char crc = crcCalc(body, 17);
+        body[17] = crc;
+        sendResponse(body,18);
         break;
     }
     }

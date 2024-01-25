@@ -7,7 +7,7 @@ void handlerOnOffCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*,
     printf("handlerOnOffCommand working\n ");
 
     //Формируем короткий ответ. По протоколу существует только ответ на команду, спецификатор 0х02
-    unsigned char shortResponse[5] = {36,0x02,0x00,0x01,0x00};
+    unsigned char shortResponse[6] = {36,0x02,0x00,0x00,0x01,0x00};
     int res = -1;
     if(input_data->header[1] == direction)
     {
@@ -15,12 +15,12 @@ void handlerOnOffCommand(STRUCT_COMMAND *input_data, void (*sendResponse)(char*,
     }
     if(res != 0)
     {
-        shortResponse[4] = 0x10; // Некорректный режим
+        shortResponse[5] = 0x10; // Некорректный режим
     }
 
     unsigned char crc = crcCalc(shortResponse, 5);
-    unsigned char response[6] = {36,0x02,0x00,0x01,shortResponse[4],crc};
-    sendResponse(response,6);
+    unsigned char response[7] = {36,0x02,0x00,0x00,0x01,shortResponse[5],crc};
+    sendResponse(response,7);
 
 }
 

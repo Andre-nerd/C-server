@@ -16,10 +16,10 @@ void handlerCloseFileWriteCommand(STRUCT_COMMAND *input_data, void (*sendRespons
     char status = closeFileByDescriptor(descriptor);
 
     //Формируем короткий ответ. По протоколу существует только ответ на команду, спецификатор 0х02
-    unsigned char response[6] = {36,0x02,0x06,0x01,status};
-    unsigned char crc = crcCalc(response, 5);
-    response[5] = crc;
-    sendResponse(response,6);
+    unsigned char response[7] = {36,0x02,0x06,0x00,0x01,status};
+    unsigned char crc = crcCalc(response, 6);
+    response[6] = crc;
+    sendResponse(response,7);
 
 }
 

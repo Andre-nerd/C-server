@@ -1,22 +1,28 @@
 #include "const.h"
 #include "common_utils.h"
 
+char dCharge = 0;
 void sendRegularTelemetryMessage(void (*sendResponse)(char*, int))
 {
     short batteryVoltage;
     short batteryCurrent;
     short weightRTK;
     short weightPPP;
-    char batteryInfo;
+    char batteryChargeLevel;
     char setting;
     char lastAmendmentTimeRTK;
     char lastAmendmentTimePPP;
 
-    batteryVoltage = 12;
-    batteryCurrent = 1;
+    batteryVoltage = 7;
+    batteryCurrent = 2;
     weightRTK = 98;
     weightPPP = 77;
-    batteryInfo = 28;
+    batteryChargeLevel = 1 + dCharge;
+    dCharge++;
+    if(dCharge == 98) dCharge = 1;
+    char _chargeLevel = batteryChargeLevel;
+    _chargeLevel |= (1 << 7);
+
     setting = 0;
     lastAmendmentTimeRTK = 55;
     lastAmendmentTimePPP = 77;
@@ -30,25 +36,25 @@ void sendRegularTelemetryMessage(void (*sendResponse)(char*, int))
     char weightPPP_bytes[sizeof(short)];
     memcpy(weightPPP_bytes, &weightPPP, sizeof(short));
 
-    char body[17] = {36,0x04,0x04,0x0C};
+    char body[18] = {36,0x04,0x04,0x00,0x0C};
     for(int i=0; i < 2; ++i)
     {
-        body[i+4] = batteryVoltage_bytes[i];
-        body[i+6] = batteryCurrent_bytes[i];
-        body[i+8] = weightRTK_bytes[i];
-        body[i+10] = weightPPP_bytes[i];
+        body[i+5] = batteryVoltage_bytes[i];
+        body[i+7] = batteryCurrent_bytes[i];
+        body[i+9] = weightRTK_bytes[i];
+        body[i+11] = weightPPP_bytes[i];
     }
-    body[12] = batteryInfo;
-    body[13] = setting;
-    body[14] = lastAmendmentTimeRTK;
-    body[15] = lastAmendmentTimePPP;
+    body[13] = _chargeLevel;
+    body[14] = setting;
+    body[15] = lastAmendmentTimeRTK;
+    body[16] = lastAmendmentTimePPP;
 
 
-    char crc = crcCalc(body,16);
-    body[16] = crc;
+    char crc = crcCalc(body,17);
+    body[17] = crc;
     printf("send Regular Telemetry message\n");
     printCommandByBytes(body, sizeof(body));
-    sendResponse(body,17);
+    sendResponse(body,18);
 }
 char setParamModuleTelemerty(char param)
 {
@@ -80,10 +86,10 @@ void handlerModuleTelemetryCommand(STRUCT_COMMAND *input_data, void (*sendRespon
 
         char param = input_data->body[0];
         char status = setParamModuleTelemerty(param);
-        char body[5] = {36, 0x02, 0x04, 0x01,status};
-        char crc = crcCalc(body, 5);
-        char response[6] = {36, 0x02, 0x04, 0x01,status,crc};
-        sendResponse(response,6);
+        char body[6] = {36, 0x02, 0x04, 0x00,0x01,status};
+        char crc = crcCalc(body, 6);
+        char response[7] = {36, 0x02, 0x04, 0x00,0x01,status,crc};
+        sendResponse(response,7);
         break;
     }
 
@@ -91,10 +97,10 @@ void handlerModuleTelemetryCommand(STRUCT_COMMAND *input_data, void (*sendRespon
     case 1: //Запрос параметра
     {
         char param = getParamModuleTelemerty();
-        char body[6] = {36, 0x03, 0x04, 0x02, 0x01, param};
-        char crc = crcCalc(body, 6);
-        char response[7] = {36, 0x03, 0x04, 0x02, 0x01, param, crc};
-        sendResponse(response,7);
+        char body[7] = {36, 0x03, 0x04, 0x00,0x02, 0x00, param};
+        char crc = crcCalc(body, 7);
+        char response[8] = {36, 0x03, 0x04, 0x00,0x02, 0x00, param, crc};
+        sendResponse(response,8);
         break;
     }
     }

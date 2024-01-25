@@ -92,7 +92,7 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         longitude = 37.4532021;
         altitude = 123.76;
         precision = 4.89;
-                satellitesAll = 15;
+        satellitesAll = 15;
         satellitesSolution = 0;
         stantionLSNALL = 9;
         stantionLSNSolution = 5;
@@ -119,31 +119,31 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     char precision_bytes[sizeof(float)];
     memcpy(precision_bytes, &precision, sizeof(float));
 
-    char body[32] = {36,0x04,0x03,0x1B};
+    char body[33] = {36,0x04,0x03,0x00,0x1B};
     for(int i=0; i < 4; ++i)
     {
-        body[i+4] = latitude_bytes[i];
-        body[i+8] = longitude_bytes[i];
-        body[i+12] = altitude_bytes[i];
-        body[i+16] = precision_bytes[i];
+        body[i+5] = latitude_bytes[i];
+        body[i+9] = longitude_bytes[i];
+        body[i+13] = altitude_bytes[i];
+        body[i+17] = precision_bytes[i];
     }
-    body[20] = valid;
-    body[21] = devices;
+    body[21] = valid;
+    body[22] = devices;
     body[22] = modeGNSS;
-    body[23] = satellitesAll;
-    body[24] = satellitesSolution;
-    body[25] = stantionLSNALL;
-    body[26] = stantionLSNSolution;
-    body[27] = iBeaconALL;
-    body[28] = iBeaconSolution;
-    body[29] = wifiRTTALL;
-    body[30] = wifiRTTSolution;
+    body[24] = satellitesAll;
+    body[25] = satellitesSolution;
+    body[26] = stantionLSNALL;
+    body[27] = stantionLSNSolution;
+    body[28] = iBeaconALL;
+    body[29] = iBeaconSolution;
+    body[30] = wifiRTTALL;
+    body[31] = wifiRTTSolution;
 
-    char crc = crcCalc(body,31);
-    body[31] = crc;
+    char crc = crcCalc(body,32);
+    body[32] = crc;
     printf("send Regular Navigation message\n");
     printCommandByBytes(body, sizeof(body));
-    sendResponse(body,32);
+    sendResponse(body,33);
 }
 
 char setParamNavigationTelemerty(char param)
@@ -176,10 +176,10 @@ void handlerNavigationTelemetryCommand(STRUCT_COMMAND *input_data, void (*sendRe
 
         char param = input_data->body[0];
         char status = setParamNavigationTelemerty(param);
-        char body[5] = {36, 0x02, 0x03, 0x01,status};
+        char body[6] = {36, 0x02, 0x03, 0x00,0x01,status};
         char crc = crcCalc(body, 5);
-        char response[6] = {36, 0x02, 0x03, 0x01,status,crc};
-        sendResponse(response,6);
+        char response[7] = {36, 0x02, 0x03, 0x00,0x01,status,crc};
+        sendResponse(response,7);
         break;
     }
 
@@ -187,10 +187,10 @@ void handlerNavigationTelemetryCommand(STRUCT_COMMAND *input_data, void (*sendRe
     case 1: //Запрос параметра
     {
         char param = getParamNavigationTelemerty();
-        char body[6] = {36, 0x03, 0x03, 0x02, 0x01, param};
-        char crc = crcCalc(body, 6);
-        char response[7] = {36, 0x03, 0x03, 0x02, 0x01, param, crc};
-        sendResponse(response,7);
+        char body[7] = {36, 0x03, 0x03, 0x00,0x02, 0x00, param};
+        char crc = crcCalc(body, 7);
+        char response[8] = {36, 0x03, 0x03, 0x00,0x02, 0x00, param, crc};
+        sendResponse(response,8);
         break;
     }
     }
