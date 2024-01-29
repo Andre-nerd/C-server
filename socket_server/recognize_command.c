@@ -49,6 +49,11 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerRequestParamModuleCommand(input_data, sendResponse);
         break;
     }
+    case subsribe_amendment:
+    {
+        handlerSubscribeAmendmentCommand(input_data, sendResponse);
+        break;
+    }
     };
 
 

@@ -8,7 +8,7 @@ STRUCT_COMMAND getStructCommand(char *head_buf, char *body_buf)
         output_data.header[i] = head_buf[i];
     }
 
-    for(int i = 0; i < head_buf[3]+1; ++i)
+    for(int i = 0; i < head_buf[4]+1; ++i)
     {
         output_data.body[i] = body_buf[i];
     }
@@ -23,12 +23,12 @@ void printStructCommand(char *header, char *body)
         printf("%d ", (char) header[i]);
     }
     printf("  ");
-    for( int i = 0; i < header[3] ; ++i )
+    for( int i = 0; i < header[4] ; ++i )
     {
         printf("%d ", body[i]);
     }
     printf("  ");
-    printf("%d",body[header[3]]);
+    printf("%d",body[header[4]]);
     printf("\n");
 }
 void printCommandByBytes(unsigned char *body, int length_body)

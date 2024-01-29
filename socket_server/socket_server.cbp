@@ -66,6 +66,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="command_request_param_module.h" />
+		<Unit filename="command_subscribe_amendment.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_subscribe_amendment.h" />
 		<Unit filename="common_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>

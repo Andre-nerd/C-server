@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1705567814 source:c:\candcplus\projects\c-server\socket_server\common_utils.c
+1706275366 source:c:\candcplus\projects\c-server\socket_server\common_utils.c
 	"const.h"
 
-1705584211 c:\candcplus\projects\c-server\socket_server\const.h
+1706276231 c:\candcplus\projects\c-server\socket_server\const.h
 
-1705578289 source:c:\candcplus\projects\c-server\socket_server\main.c
+1706276318 source:c:\candcplus\projects\c-server\socket_server\main.c
 	<stdio.h>
 	<stdlib.h>
 	<winsock2.h>
@@ -17,37 +17,49 @@
 
 1705390266 c:\candcplus\projects\c-server\socket_server\recognize_command.h
 
-1705565984 c:\candcplus\projects\c-server\socket_server\common_utils.h
+1705654179 c:\candcplus\projects\c-server\socket_server\common_utils.h
 
 1704812139 source:c:\candcplus\projects\c-server\socket_server\on_off_command.c
 	"const.h"
 	"common_utils.h"
 
-1705409979 source:c:\candcplus\projects\c-server\socket_server\command_amendment.c
+1706186067 source:c:\candcplus\projects\c-server\socket_server\command_amendment.c
 	"const.h"
 	"common_utils.h"
 
-1705404445 source:c:\candcplus\projects\c-server\socket_server\command_devices_for_solution.c
+1706186067 source:c:\candcplus\projects\c-server\socket_server\command_devices_for_solution.c
 	"const.h"
 	"common_utils.h"
 
-1705580182 source:c:\candcplus\projects\c-server\socket_server\command_module_telemetry.c
+1706190077 source:c:\candcplus\projects\c-server\socket_server\command_module_telemetry.c
 	"const.h"
 	"common_utils.h"
 
-1705580182 source:c:\candcplus\projects\c-server\socket_server\command_navigation_telemetry.c
+1706186067 source:c:\candcplus\projects\c-server\socket_server\command_navigation_telemetry.c
 	"const.h"
 	"common_utils.h"
 
-1705396650 source:c:\candcplus\projects\c-server\socket_server\command_on_off.c
+1706186340 source:c:\candcplus\projects\c-server\socket_server\command_on_off.c
 	"const.h"
 	"common_utils.h"
 
-1705583224 source:c:\candcplus\projects\c-server\socket_server\recognize_command.c
+1706272899 source:c:\candcplus\projects\c-server\socket_server\recognize_command.c
 	"const.h"
 	"on_off_command.h"
 
-1705587715 source:c:\candcplus\projects\c-server\socket_server\command_open_file_write.c
+1706186340 source:c:\candcplus\projects\c-server\socket_server\command_open_file_write.c
+	"const.h"
+	"common_utils.h"
+
+1706186067 source:c:\candcplus\projects\c-server\socket_server\command_close_file.c
+	"const.h"
+	"common_utils.h"
+
+1706193423 source:c:\candcplus\projects\c-server\socket_server\command_request_param_module.c
+	"const.h"
+	"common_utils.h"
+
+1706516203 source:c:\candcplus\projects\c-server\socket_server\command_subscribe_amendment.c
 	"const.h"
 	"common_utils.h"
 

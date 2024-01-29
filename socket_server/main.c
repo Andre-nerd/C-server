@@ -21,8 +21,8 @@ int main()
 {
 
 connect:
-    navigation_frequency  = 1;
-    telemetry_frequency = 1;
+    navigation_frequency  = 0;
+    telemetry_frequency = 0;
     printf("Server launced: v 3.0\n ");
 
 
@@ -102,8 +102,8 @@ connect:
             if(body_buf != NULL)
             {
                 recv(client_socket, body_buf, body_size, 0);
-
                 STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
+
                 recognize_command(&input_data, sendResponse);
                 free(body_buf);
             }
