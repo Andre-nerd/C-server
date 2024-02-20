@@ -54,6 +54,11 @@ void recognize_command(STRUCT_COMMAND *input_data, void (*sendResponse)(char*, i
         handlerSubscribeAmendmentCommand(input_data, sendResponse);
         break;
     }
+        case system_coordinates:
+    {
+        handlerSystemCoordinatestCommand(input_data, sendResponse);
+        break;
+    }
     };
 
 

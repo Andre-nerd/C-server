@@ -1,7 +1,7 @@
 #include "const.h"
 #include "common_utils.h"
 
-
+float delta = 0.000008724;
 void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
 {
     float latitude;
@@ -20,12 +20,14 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     char wifiRTTALL;
     char wifiRTTSolution;
 
+    delta += 0.000000924;
+
     switch(imitation_cycle_navigation)// Только для имитации изменения координат в тестовом режиме
     {
     case 0:
     {
-        latitude = 55.3786;
-        longitude = 37.4532;
+        latitude = 55.843688724;
+        longitude = 37.5788117;
         altitude = 123.45;
         precision = 4.52;
         satellitesAll = 11;
@@ -40,8 +42,8 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     }
     case 1:
     {
-        latitude = 55.378673;
-        longitude = 37.453298;
+        latitude = 55.843688724 + delta;
+        longitude = 37.5788117 + delta;
         altitude = 120.45;
         precision = 6.72;
         satellitesAll = 15;
@@ -56,8 +58,8 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     }
     case 2:
     {
-        latitude = 55.378665;
-        longitude = 37.453274;
+        latitude = 55.843688724 + delta/2;
+        longitude = 37.5788117 + delta/2;
         altitude = 121.01;
         precision = 5.721;
         satellitesAll = 11;
@@ -72,8 +74,8 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     }
     case 3:
     {
-        latitude = 55.378699;
-        longitude = 37.453300;
+        latitude = 55.843688724 + delta/2;
+        longitude = 37.5788117 ;
         altitude = 123.12;
         precision = 3.22;
         satellitesAll = 15;
@@ -88,8 +90,8 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
     }
     case 4:
     {
-        latitude = 55.3787001;
-        longitude = 37.4532021;
+        latitude = 55.84368872 - delta/4;
+        longitude = 37.5788117 + delta/2 ;
         altitude = 123.76;
         precision = 4.89;
         satellitesAll = 15;

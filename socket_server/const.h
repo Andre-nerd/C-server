@@ -20,7 +20,7 @@ typedef struct
 enum commands {
     on_off_command = 0x00, devices_for_solution = 0x01, amendment_manage =  0x02, navigation_telemetry = 0x03,
     module_telemetry = 0x04, open_file_write = 0x05, close_file_write = 0x06, request_common_param = 0x07,
-    subsribe_amendment = 0x08
+    subsribe_amendment = 0x08, system_coordinates = 0x09
 };
 enum specifications {
     direction = 0x00,
@@ -45,6 +45,8 @@ char file_name[F_NAME_LENGTH];
 
 //Питание модема  GSM, подписки на поправки
 char settingAmendment;
+//Система координа
+char systemCoordinates;
 
 
 #endif // CONST_H_INCLUDED

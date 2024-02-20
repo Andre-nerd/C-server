@@ -19,10 +19,10 @@ void sendResponse(char* response, int length_response )
 
 int main()
 {
-
+systemCoordinates = 1;
 connect:
-    navigation_frequency  = 0;
-    telemetry_frequency = 0;
+    navigation_frequency  = 1;
+    telemetry_frequency = 1;
     printf("Server launced: v 3.0\n ");
 
 
@@ -62,7 +62,7 @@ connect:
         {
             telemetry_diff = clock() - telemetry_start;
             int msec_telemetry = telemetry_diff * 1000 / CLOCKS_PER_SEC ;
-            if(msec_telemetry >= 1000 / telemetry_frequency)
+            if(msec_telemetry >= 1000 * telemetry_frequency)
             {
                 sendRegularTelemetryMessage(sendResponse);
                 telemetry_start = clock();
@@ -97,7 +97,7 @@ connect:
                 break;
             }
 
-            unsigned char body_size = head_buf[4] + 1;
+            unsigned char body_size = head_buf[3] + 1;
             char* body_buf = (char*) malloc(body_size);
             if(body_buf != NULL)
             {

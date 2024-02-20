@@ -70,6 +70,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="command_subscribe_amendment.h" />
+		<Unit filename="command_system_coordinates.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="command_system_coordinates.h" />
 		<Unit filename="common_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
