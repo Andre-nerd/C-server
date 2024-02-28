@@ -22,7 +22,7 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
 
     delta += 0.000000924;
 
-    switch(imitation_cycle_navigation)// Только для имитации изменения координат в тестовом режиме
+    switch(0)// Только для имитации изменения координат в тестовом режиме
     {
     case 0:
     {
