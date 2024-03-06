@@ -52,8 +52,8 @@ void sendRegularTelemetryMessage(void (*sendResponse)(char*, int))
 
     char crc = crcCalc(body,17);
     body[17] = crc;
-    printf("send Regular Telemetry message\n");
-    printCommandByBytes(body, sizeof(body));
+//    printf("send Regular Telemetry message\n");
+//    printCommandByBytes(body, sizeof(body));
     sendResponse(body,18);
 }
 char setParamModuleTelemerty(char param)

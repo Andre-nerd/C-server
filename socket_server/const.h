@@ -40,13 +40,14 @@ char navigation_frequency; // „астота выдачи регул€рного сообщени€ с данными нав
 
 // ¬ременное хранилище параметров записи в файл
 char components_for_recording;
-char file_descriptor;
+char file_descriptor; //»дет ли запись логов в файл != 0
 char file_name[F_NAME_LENGTH];
 
 //ѕитание модема  GSM, подписки на поправки
 char settingAmendment;
-//—истема координа
+//—истема координат
 char systemCoordinates;
+
 
 
 #endif // CONST_H_INCLUDED

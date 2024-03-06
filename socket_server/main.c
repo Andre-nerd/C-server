@@ -20,6 +20,7 @@ void sendResponse(char* response, int length_response )
 int main()
 {
 systemCoordinates = 1;
+file_descriptor = 0;
 connect:
     navigation_frequency  = 1;
     telemetry_frequency = 1;

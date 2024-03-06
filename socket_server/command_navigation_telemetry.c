@@ -31,7 +31,7 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
         altitude = 123.45;
         precision = 4.52;
         satellitesAll = 11;
-        satellitesSolution = 0;
+        satellitesSolution = 4;
         stantionLSNALL = 7;
         stantionLSNSolution = 0;
         iBeaconALL = 8;
@@ -143,8 +143,8 @@ void sendRegularNavigationMessage(void (*sendResponse)(char*, int))
 
     char crc = crcCalc(body,32);
     body[32] = crc;
-    printf("send Regular Navigation message\n");
-    printCommandByBytes(body, sizeof(body));
+//    printf("send Regular Navigation message\n");
+//    printCommandByBytes(body, sizeof(body));
     sendResponse(body,33);
 }
 
