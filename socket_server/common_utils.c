@@ -1,34 +1,38 @@
 #include "const.h"
 
-STRUCT_COMMAND getStructCommand(char *head_buf, char *body_buf)
+getStructCommand(char *head_buf, char *body_buf, STRUCT_COMMAND *output_data)
 {
-    STRUCT_COMMAND output_data;
     for(int i = 0; i < HEADER_SIZE; ++i)
     {
-        output_data.header[i] = head_buf[i];
+        output_data->header[i] = head_buf[i];
     }
 
-    for(int i = 0; i < head_buf[4]+1; ++i)
+    for(int i = 0; i < head_buf[3]+1; ++i)
     {
-        output_data.body[i] = body_buf[i];
+        output_data->body[i] = body_buf[i];
     }
+    printf("----------------------get struct command-----------------------------\n");
+    printf("----------------------source-----------------------------\n");
+    printStructCommand(&head_buf, &body_buf );
+    printf("----------------------output data-----------------------------\n");
+    printStructCommand(&output_data->header, &output_data->body );
     return output_data;
 }
 
 void printStructCommand(char *header, char *body)
 {
-    printf("new command:\n");
+//    printf("new command:\n");
     for( int i = 0; i < HEADER_SIZE ; ++i )
     {
         printf("%d ", (char) header[i]);
     }
-    printf("  ");
-    for( int i = 0; i < header[4] ; ++i )
+    printf(" length body: %d  ", header[3] );
+    for( int i = 0; i < header[3] ; ++i )
     {
         printf("%d ", body[i]);
     }
     printf("  ");
-    printf("%d",body[header[4]]);
+    printf("%d",body[header[3]]);
     printf("\n");
 }
 void printCommandByBytes(unsigned char *body, int length_body)

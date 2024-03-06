@@ -42,6 +42,7 @@ char navigation_frequency; // „астота выдачи регул€рного сообщени€ с данными нав
 char components_for_recording;
 char file_descriptor; //»дет ли запись логов в файл != 0
 char file_name[F_NAME_LENGTH];
+char file_name_length1;
 
 //ѕитание модема  GSM, подписки на поправки
 char settingAmendment;

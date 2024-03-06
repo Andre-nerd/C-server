@@ -21,6 +21,7 @@ int main()
 {
 systemCoordinates = 1;
 file_descriptor = 0;
+file_name_length1 = 0;
 connect:
     navigation_frequency  = 1;
     telemetry_frequency = 1;
@@ -103,9 +104,12 @@ connect:
             if(body_buf != NULL)
             {
                 recv(client_socket, body_buf, body_size, 0);
-                STRUCT_COMMAND input_data = getStructCommand(head_buf, body_buf);
+                STRUCT_COMMAND input_data;
+                STRUCT_COMMAND *str;
+                str = &input_data;
+                getStructCommand(head_buf, body_buf, str);
 
-                recognize_command(&input_data, sendResponse);
+                recognize_command(str, sendResponse);
                 free(body_buf);
             }
 
